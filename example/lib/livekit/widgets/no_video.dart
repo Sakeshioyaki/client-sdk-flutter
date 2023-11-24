@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:livekit_example/livekit/theme.dart';
 import 'dart:math' as math;
 
-import 'package:livekit_example/theme.dart';
 
 class NoVideoWidget extends StatelessWidget {
   //

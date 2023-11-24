@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:livekit_example/theme.dart';
+import 'package:livekit_example/livekit/theme.dart';
 
 import 'no_video.dart';
 import 'participant_info.dart';
@@ -146,13 +146,13 @@ abstract class _ParticipantWidgetState<T extends ParticipantWidget>
                     )
                   : const NoVideoWidget(),
             ),
-            if (widget.showStatsLayer)
-              Positioned(
-                  top: 30,
-                  right: 30,
-                  child: ParticipantStatsWidget(
-                    participant: widget.participant,
-                  )),
+            // if (widget.showStatsLayer)
+            //   Positioned(
+            //       top: 30,
+            //       right: 30,
+            //       child: ParticipantStatsWidget(
+            //         participant: widget.participant,
+            //       )),
             // Bottom bar
             Align(
               alignment: Alignment.bottomCenter,

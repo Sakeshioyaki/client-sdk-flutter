@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:livekit_example/widgets/text_field.dart';
+import 'package:livekit_example/livekit/exts.dart';
+import 'package:livekit_example/livekit/widgets/text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../exts.dart';
 import 'room.dart';
 
 class ConnectPage extends StatefulWidget {
@@ -239,8 +239,14 @@ class _ConnectPageState extends State<ConnectPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          leading: BackButton(
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: Container(
           alignment: Alignment.center,
+          color: Colors.white10,
           child: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -253,10 +259,18 @@ class _ConnectPageState extends State<ConnectPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 70),
+                    padding: const EdgeInsets.only(bottom: 20),
                     child: SvgPicture.asset(
                       'images/logo-dark.svg',
                     ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await Clipboard.setData(const ClipboardData(
+                          text: 'wss://live-z6wh9cwl.livekit.cloud'));
+                      // copied successfully
+                    },
+                    child: const Text('Sever Url'),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 25),
@@ -265,6 +279,29 @@ class _ConnectPageState extends State<ConnectPage> {
                       ctrl: _uriCtrl,
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  const Text(
+                      'Token cần được tạo từ sever. Vui lòng sử dụng token sau đây để đăng nhập <Tap để coppy>: '),
+                  TextButton(
+                    onPressed: () async {
+                      await Clipboard.setData(const ClipboardData(
+                          text:
+                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDk4MTAyODAsImlzcyI6IkFQSVNNRkptY2J3cG5pcSIsIm5iZiI6MTcwMDgxMDI4MCwic3ViIjoidXNlcjEiLCJ2aWRlbyI6eyJjYW5QdWJsaXNoIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJyb29tIjoibmV3Um9vbSIsInJvb21Kb2luIjp0cnVlfX0.6Q3AlI-UGyVMFOHuvNAcx_FXg5-Lly-ME-CbDD74EFE'));
+                      // copied successfully
+                    },
+                    child: const Text('Token 1'),
+                  ),
+                  const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () async {
+                      await Clipboard.setData(const ClipboardData(
+                          text:
+                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDk4MTAzNTIsImlzcyI6IkFQSVNNRkptY2J3cG5pcSIsIm5iZiI6MTcwMDgxMDM1Miwic3ViIjoidXNlcjIiLCJ2aWRlbyI6eyJjYW5QdWJsaXNoIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJyb29tIjoibmV3Um9vbSIsInJvb21Kb2luIjp0cnVlfX0.nWKkrpM3lEY5lSjDX6-faosC-22SIy9r0lnWRgvoZgg'));
+                      // copied successfully
+                    },
+                    child: const Text('Token 2'),
+                  ),
+                  const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 25),
                     child: LKTextField(

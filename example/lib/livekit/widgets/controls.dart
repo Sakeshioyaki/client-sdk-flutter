@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background/flutter_background.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-
-import '../exts.dart';
+import 'package:livekit_example/livekit/exts.dart';
 
 class ControlsWidget extends StatefulWidget {
   //

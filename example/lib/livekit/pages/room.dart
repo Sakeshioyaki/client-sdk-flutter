@@ -3,8 +3,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:livekit_client/livekit_client.dart';
+import 'package:livekit_example/livekit/exts.dart';
 
-import '../exts.dart';
 import '../widgets/controls.dart';
 import '../widgets/participant.dart';
 import '../widgets/participant_info.dart';
@@ -29,6 +29,8 @@ class _RoomPageState extends State<RoomPage> {
   List<ParticipantTrack> participantTracks = [];
   EventsListener<RoomEvent> get _listener => widget.listener;
   bool get fastConnection => widget.room.engine.fastConnectOptions != null;
+  int numberUser = 0;
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +48,7 @@ class _RoomPageState extends State<RoomPage> {
     if (lkPlatformIsMobile()) {
       Hardware.instance.setSpeakerphoneOn(true);
     }
+
   }
 
   @override
@@ -63,10 +66,15 @@ class _RoomPageState extends State<RoomPage> {
   void _setUpListeners() => _listener
     ..on<RoomDisconnectedEvent>((event) async {
       if (event.reason != null) {
+        //tru di ng tham gia
+        numberUser--;
         print('Room disconnected: reason => ${event.reason}');
       }
       WidgetsBindingCompatible.instance
           ?.addPostFrameCallback((timeStamp) => Navigator.pop(context));
+    })
+    ..on<ParticipantConnectedEvent>((e) {
+      numberUser++;
     })
     ..on<ParticipantEvent>((event) {
       print('Participant event');
